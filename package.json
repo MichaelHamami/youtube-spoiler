@@ -1,0 +1,10 @@
+{
+    "name": "youtube-spoiler-blocker",
+    "version": "1.0.0",
+    "scripts": {
+      "build:ui": "cd extension-ui && npm run build",
+      "copy:static": "cp manifest.json public/manifest.json && cp content-script.js public/ && cp icon.png public/",
+      "build": "npm run build:ui && npm run copy:static"
+    }
+  }
+  

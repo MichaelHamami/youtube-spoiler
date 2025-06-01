@@ -1,0 +1,75 @@
+import { useState } from "react";
+
+function App() {
+  const [status, setStatus] = useState("");
+
+  const sendCommand = async (command) => {
+    const [tab] = await chrome.tabs.query({
+      active: true,
+      currentWindow: true,
+    });
+
+    if (!tab.id) return;
+
+    await chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      func: (cmd) => {
+        const video = document.querySelector("video");
+        if (!video) {
+          console.log("No video found");
+          return;
+        }
+
+        if (cmd === "restart") {
+          video.currentTime = 0;
+        } else if (cmd === "skip5") {
+          video.currentTime = Math.min(video.duration, video.currentTime + 300);
+        }
+      },
+      args: [command],
+    });
+
+    setStatus(`✅ ${actions[command].actionLabel}`);
+    setTimeout(() => setStatus(""), 2000);
+  };
+
+  return (
+    <div style={{ padding: "1rem", fontFamily: "sans-serif" }}>
+      <h3>YouTube Spoiler Blocker My Extension </h3>
+      <p style={{ color: "green" }}>✅ Active</p>
+      {Object.values(actions).map((action) => (
+        <button
+          key={action.command}
+          onClick={() => sendCommand(action.command)}
+          style={buttonStyle}
+        >
+          {action.label}
+        </button>
+      ))}
+      <p style={{ color: "green", marginTop: "0.5rem" }}>{status}</p>
+    </div>
+  );
+}
+
+const actions = {
+  restart: {
+    label: "⏮ Restart",
+    command: "restart",
+    actionLabel: "Restarted",
+  },
+  skip5: {
+    label: "⏩ Skip 5 min",
+    command: "skip5",
+    actionLabel: "Skipped 5 minutes",
+  },
+};
+
+const buttonStyle = {
+  display: "block",
+  margin: "0.5rem 0",
+  padding: "0.5rem 1rem",
+  fontSize: "14px",
+  cursor: "pointer",
+  width: "100%",
+};
+export default App;
