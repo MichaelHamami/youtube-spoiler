@@ -3,7 +3,7 @@
     "version": "1.0.0",
     "scripts": {
       "build:ui": "cd extension-ui && npm run build",
-      "copy:static": "cp manifest.json public/manifest.json && cp content-script.js public/ && cp icon.png public/",
+      "copy:static": "cp manifest.json public/manifest.json && cp content-script.js public/ && cp video-streaming-16.png public/ && cp video-streaming-32.png public/ && cp video-streaming-48.png public/ && cp video-streaming-128.png public/",
       "build": "npm run build:ui && npm run copy:static"
     }
   }
