@@ -13,10 +13,10 @@
       }
     ],
     "icons": {
-      "16": "video-streaming-16.png",
-      "32": "video-streaming-32.png",
-      "48": "video-streaming-48.png",
-      "128": "video-streaming-128.png"
+      "16": "icon_16.png",
+      "32": "icon_32.png",
+      "48": "icon_48.png",
+      "128": "icon_128.png"
     }
   }
   

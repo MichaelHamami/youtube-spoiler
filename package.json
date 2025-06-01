@@ -2,9 +2,10 @@
     "name": "youtube-spoiler-blocker",
     "version": "1.0.0",
     "scripts": {
+      "clean": "rm -rf public",
       "build:ui": "cd extension-ui && npm run build",
-      "copy:static": "cp manifest.json public/manifest.json && cp content-script.js public/ && cp video-streaming-16.png public/ && cp video-streaming-32.png public/ && cp video-streaming-48.png public/ && cp video-streaming-128.png public/",
-      "build": "npm run build:ui && npm run copy:static"
+      "copy:static": "cp manifest.json public/manifest.json && cp content-script.js public/ && cp icon_16.png public/ && cp icon_32.png public/ && cp icon_48.png public/ && cp icon_128.png public/",
+      "build": "npm run clean && npm run build:ui && npm run copy:static"
     }
   }
   
