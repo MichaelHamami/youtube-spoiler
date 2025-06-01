@@ -24,6 +24,21 @@ function App() {
           video.currentTime = 0;
         } else if (cmd === "skip5") {
           video.currentTime = Math.min(video.duration, video.currentTime + 300);
+        } else if (cmd === "hide") {
+          const timeDisplay = document.querySelector(
+            "div.ytp-time-display.notranslate"
+          );
+          const progressBar = document.querySelector(
+            "div.ytp-progress-bar-container"
+          );
+
+          if (timeDisplay) {
+            timeDisplay.style.display = "none";
+          }
+
+          if (progressBar) {
+            progressBar.style.display = "none";
+          }
         }
       },
       args: [command],
@@ -61,6 +76,11 @@ const actions = {
     label: "⏩ Skip 5 min",
     command: "skip5",
     actionLabel: "Skipped 5 minutes",
+  },
+  hide: {
+    label: "Hide",
+    command: "hide",
+    actionLabel: "Hidden",
   },
 };
 
