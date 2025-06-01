@@ -39,6 +39,21 @@ function App() {
           if (progressBar) {
             progressBar.style.display = "none";
           }
+        } else if (cmd === "show") {
+          const timeDisplay = document.querySelector(
+            "div.ytp-time-display.notranslate"
+          );
+          const progressBar = document.querySelector(
+            "div.ytp-progress-bar-container"
+          );
+
+          if (timeDisplay) {
+            timeDisplay.style.display = "block";
+          }
+
+          if (progressBar) {
+            progressBar.style.display = "block";
+          }
         }
       },
       args: [command],
@@ -81,6 +96,11 @@ const actions = {
     label: "Hide",
     command: "hide",
     actionLabel: "Hidden",
+  },
+  show: {
+    label: "Show",
+    command: "show",
+    actionLabel: "Shown",
   },
 };
 
