@@ -1,8 +1,4 @@
-import { useState } from "react";
-
 function App() {
-  const [status, setStatus] = useState("");
-
   const sendCommand = async (command) => {
     const [tab] = await chrome.tabs.query({
       active: true,
@@ -58,14 +54,11 @@ function App() {
       },
       args: [command],
     });
-
-    setStatus(`✅ ${actions[command].actionLabel}`);
-    setTimeout(() => setStatus(""), 2000);
   };
 
   return (
     <div style={{ padding: "1rem", fontFamily: "sans-serif" }}>
-      <h3>YouTube Spoiler Blocker My Extension </h3>
+      <h3>My YouTube Spoiler Extension </h3>
       <p style={{ color: "green" }}>✅ Active</p>
       {Object.values(actions).map((action) => (
         <button
@@ -76,7 +69,6 @@ function App() {
           {action.label}
         </button>
       ))}
-      <p style={{ color: "green", marginTop: "0.5rem" }}>{status}</p>
     </div>
   );
 }
