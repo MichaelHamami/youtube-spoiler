@@ -1,8 +1,10 @@
 function hideSpoilerElements() {
   console.log("Spoiler script running");
   const title = document.title.toLowerCase();
-  const hasSpoiler =
-    title.includes("lck") || title.includes("lec") || title.includes("msi");
+  const titles = ["lck", "lec", "msi", "ewc", "worlds"];
+  const hasSpoiler = titles.some((titleToSearch) =>
+    title.includes(titleToSearch)
+  );
   console.log(hasSpoiler);
 
   if (!hasSpoiler) return;
