@@ -1,31 +1,30 @@
 {
-    "manifest_version": 3,
-    "name": "YouTube Spoiler Blocker",
-    "version": "1.0",
-    "description": "Hides video time for LCK/LEC videos to avoid spoilers.",
-    "permissions": ["scripting", "tabs"],
-    "host_permissions": ["https://www.youtube.com/*"],
-    "content_scripts": [
-      {
-        "matches": ["https://www.youtube.com/watch*"],
-        "js": ["content-script.js"],
-        "run_at": "document_idle"
-      }
-    ],
-    "action": {
-      "default_popup": "index.html",
-      "default_icon": {
-        "16": "icon_16.png",
-        "32": "icon_32.png",
-        "48": "icon_48.png",
-        "128": "icon_128.png"
-      }
-    },
-    "icons": {
+  "manifest_version": 3,
+  "name": "YouTube Spoiler Blocker",
+  "version": "1.0",
+  "description": "Hides video time for LCK/LEC videos to avoid spoilers.",
+  "permissions": ["scripting", "tabs"],
+  "host_permissions": ["https://www.youtube.com/*"],
+  "content_scripts": [
+    {
+      "matches": ["https://www.youtube.com/watch*"],
+      "js": ["content-script.js"],
+      "run_at": "document_start"
+    }
+  ],
+  "action": {
+    "default_popup": "index.html",
+    "default_icon": {
       "16": "icon_16.png",
       "32": "icon_32.png",
       "48": "icon_48.png",
       "128": "icon_128.png"
     }
+  },
+  "icons": {
+    "16": "icon_16.png",
+    "32": "icon_32.png",
+    "48": "icon_48.png",
+    "128": "icon_128.png"
   }
-  
+}
