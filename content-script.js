@@ -81,6 +81,42 @@ function skipVideo(minutes) {
   return { ok: true };
 }
 
+function isLiveVideo() {
+  const video = getVideo();
+  if (!video) return false;
+
+  const isNaNDuration = isNaN(video.duration);
+  if (isNaNDuration) {
+    console.log("Video duration:", video.duration);
+    return true; // Some live videos may have NaN duration
+  }
+  return video.duration === Infinity;
+}
+
+function togglePlayPause() {
+  const video = getVideo();
+  if (!video) return { ok: false, error: "No video found" };
+
+  // Toggle play/pause for all videos
+  if (video.paused) {
+    video.play().catch((err) => console.error("Play failed:", err));
+  } else {
+    video.pause();
+  }
+
+  return { ok: true };
+}
+
+function autoRestartLiveVideo() {
+  const video = getVideo();
+  if (!video) return;
+
+  // Check if video is live and restart it
+  if (isLiveVideo()) {
+    video.currentTime = 0;
+  }
+}
+
 function hideControls() {
   setSpoilerMode("hide");
   setSpoilerHidden(true);
@@ -118,6 +154,9 @@ function handleCommand(command) {
     case "show":
       return showControls();
 
+    case "togglePlayPause":
+      return togglePlayPause();
+
     default:
       return { ok: false, error: `Unknown command: ${command}` };
   }
@@ -139,6 +178,20 @@ function init() {
   hideSpoilerElements();
   listenForPopupCommands();
 
+  // Auto-restart live videos when they load
+  let videoElement = null;
+  const checkAndRestartLive = () => {
+    const currentVideo = getVideo();
+    if (currentVideo && currentVideo !== videoElement) {
+      videoElement = currentVideo;
+      // Give video time to load metadata
+      setTimeout(() => autoRestartLiveVideo(), 500);
+    }
+  };
+
+  // Check for video element periodically
+  setInterval(checkAndRestartLive, 1000);
+
   let lastUrl = location.href;
   new MutationObserver(() => {
     const currentUrl = location.href;
@@ -147,6 +200,8 @@ function init() {
       lastUrl = currentUrl;
       setSpoilerMode("auto");
       setSpoilerHidden(true);
+      videoElement = null; // Reset video reference on URL change
+      checkAndRestartLive(); // Check for new video
     }
 
     hideSpoilerElements();
